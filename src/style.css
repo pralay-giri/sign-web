@@ -11,6 +11,7 @@ html {
     font-family: cursive;
     margin: 0;
     padding: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     scroll-behavior: smooth;
     scrollbar-gutter: stable both-edges;
@@ -30,9 +31,12 @@ body {
 }
 
 nav {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 1.5rem 1fr;
     grid-template-columns: 1fr 1fr;
     padding-inline: 8rem;
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 
     & #logo {
@@ -41,7 +45,9 @@ nav {
 
         & img {
             width: 100%;
+            -o-object-fit: cover;
             object-fit: cover;
+            -o-object-position: center;
             object-position: center;
         }
     }
@@ -49,8 +55,14 @@ nav {
     & ul {
         color: var(--primary-color);
         font-size: 1.4rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
         gap: 1.5rem;
         list-style: none;
@@ -60,8 +72,14 @@ nav {
             border-radius: 10px;
             height: 2rem;
             background-color: #80b3ff;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
             align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
         }
 
@@ -96,23 +114,36 @@ nav {
     color: white;
     width: 100%;
     text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 1rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 
     & :is(.real-img, .edited-img) {
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
         width: fit-content;
         & img {
             border-radius: 10px;
 
+            -o-object-fit: cover;
+
             object-fit: cover;
+            -o-object-position: center;
             object-position: center;
             width: 40rem;
         }
     }
     & .edited-img {
+        -webkit-filter: brightness(100%) invert(1);
         filter: brightness(100%) invert(1);
     }
 
@@ -125,6 +156,7 @@ nav {
         );
         background-position: center;
         background-size: contain;
+        -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
     }
@@ -136,9 +168,18 @@ img {
 .editor {
     min-height: 90vh;
     margin-top: 10rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 
     & .instruction {
@@ -153,13 +194,21 @@ img {
     }
 
     & .controls {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         gap: 1rem;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
         margin: 10px 0;
 
         & :is(.font, .color-picker) {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
             gap: 10px;
             color: var(--primary-color);
@@ -180,11 +229,13 @@ img {
         padding: 3px 8px;
         border-radius: 10px;
         cursor: pointer;
+        -webkit-transition: all 0.1s linear;
         transition: all 0.1s linear;
 
         &:hover {
             --color: var(--hover-color);
             border-color: var(--color);
+            -webkit-box-shadow: 1px 1px 10px var(--color);
             box-shadow: 1px 1px 10px var(--color);
         }
 
@@ -200,7 +251,9 @@ img {
         & img {
             width: 100%;
             border-radius: 10px;
+            -o-object-fit: cover;
             object-fit: cover;
+            -o-object-position: center;
             object-position: center;
         }
     }
