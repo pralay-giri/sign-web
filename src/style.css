@@ -1,0 +1,207 @@
+:root {
+    --theme-text: #ffdf2b;
+    --dark-backgound: #070f2b;
+    --primary-color: #daf5ff;
+    --hover-color: #f72798;
+    --hover-color-2: #6499e9;
+}
+
+*,
+html {
+    font-family: cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable both-edges;
+}
+
+body {
+    background-color: var(--dark-backgound);
+    min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--hover-color-2);
+    border-radius: 10px;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-inline: 8rem;
+    backdrop-filter: blur(4px);
+
+    & #logo {
+        width: 10rem;
+        overflow: hidden;
+
+        & img {
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    & ul {
+        color: var(--primary-color);
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        list-style: none;
+
+        & .bar {
+            width: 1px;
+            border-radius: 10px;
+            height: 2rem;
+            background-color: #80b3ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        & li {
+            font-size: 1.2rem;
+            & a {
+                color: var(--primary-color);
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
+
+.header {
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 8rem;
+    font-size: 1.5rem;
+    & .subtitle {
+        font-size: 1.2rem;
+        & span {
+            color: var(--theme-text);
+            font-size: 35px;
+        }
+    }
+}
+
+.demo {
+    margin-top: 10rem;
+    color: white;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    & :is(.real-img, .edited-img) {
+        width: fit-content;
+        & img {
+            border-radius: 10px;
+
+            object-fit: cover;
+            object-position: center;
+            width: 40rem;
+        }
+    }
+    & .edited-img {
+        filter: brightness(100%) invert(1);
+    }
+
+    & .arrow {
+        font-size: 4rem;
+        background-image: linear-gradient(
+            45deg,
+            #ff6868 50%,
+            var(--theme-text)
+        );
+        background-position: center;
+        background-size: contain;
+        background-clip: text;
+        color: transparent;
+    }
+}
+img {
+    width: 40rem;
+}
+
+.editor {
+    min-height: 90vh;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    & .instruction {
+        color: var(--primary-color);
+        margin: 1rem;
+    }
+
+    & #canvas {
+        background-color: var(--primary-color);
+        border-radius: 10px;
+        cursor: crosshair;
+    }
+
+    & .controls {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
+
+        & :is(.font, .color-picker) {
+            display: flex;
+            gap: 10px;
+            color: var(--primary-color);
+        }
+        #font {
+            background-color: red;
+        }
+    }
+
+    & .btns > button,
+    .download {
+        color: var(--primary-color);
+        margin: 1rem 2rem;
+        font-size: 2rem;
+        background-color: transparent;
+        border: 1px solid white;
+        outline: none;
+        padding: 3px 8px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.1s linear;
+
+        &:hover {
+            --color: var(--hover-color);
+            border-color: var(--color);
+            box-shadow: 1px 1px 10px var(--color);
+        }
+
+        &:last-child:hover {
+            --color: var(--hover-color-2);
+        }
+    }
+
+    & .output {
+        width: 50%;
+        background-color: white;
+
+        & img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}
