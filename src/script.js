@@ -1,4 +1,3 @@
-"use strict";
 const canvas = document.getElementById("canvas");
 const font = document.getElementById("font");
 const color = document.getElementById("color");
@@ -9,41 +8,37 @@ const outputDiv = document.querySelector(".output");
 const download = document.querySelector(".download");
 const fontValue = document.querySelector(".font-value");
 const rect = canvas.getClientRects()[0];
+canvas.style.backgroundColor = "white";
+canvas.width = 800;
+canvas.height = 400;
 const ctx = canvas.getContext("2d");
-const canvasWidth = canvas.width;
-const canvasHeight = canvas.height;
+const a = document.createElement("a");
 
-let config = {
-    fontSize: font.value,
-    color: color.value,
-};
 let writeMode = 0;
-
-const getposition = (event) => {
-    const x = event.clientX - rect.x;
-    const y = event.clientY - rect.y;
-    return [x, y];
-};
 
 const handleMove = (e) => {
     if (!writeMode) return;
-    const [x, y] = getposition(e);
-    ctx.lineTo(x, y);
-    ctx.lineWidth = config.fontSize;
-    ctx.strokeStyle = config.color;
+
+    console.log("on move start");
+    ctx.lineTo(e.clientX - rect.x, e.clientY - rect.y);
     ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = font.value;
+    ctx.strokeStyle = color.value;
     ctx.stroke();
+
+    console.log("on move end");
 };
 
 const handlePointerDown = (e) => {
     writeMode = 1;
     ctx.beginPath();
-    const [x, y] = getposition(e);
-    ctx.moveTo(x, y);
+    ctx.moveTo(e.clientX - rect.x, e.clientY - rect.y);
 };
 
 const handlePointerUp = () => {
     writeMode = 0;
+    ctx.closePath();
 };
 
 const handleFont = (e) => {
@@ -53,15 +48,14 @@ const handleFont = (e) => {
 
 const handleColor = (e) => {
     config.color = e.target.value;
-    canvas.style.backgroundColor = "black";
 };
 
-const handleClear = () => {
-    ctx.clearRect(0, 0, rect.width, rect.height);
+const handleClear = (e) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     output.src = "./media/out.png";
 };
 
-const handleCreateBtn = () => {
+const handleCreateBtn = (e) => {
     const data = canvas.toDataURL();
     output.src = data;
     if (config.color === "white" || config.color === "#ffffff") {
@@ -70,25 +64,47 @@ const handleCreateBtn = () => {
 };
 
 const handleDownload = () => {
-    const a = document.createElement("a");
     a.href = output.src;
     a.download = "SIGN_WEB";
     a.click();
 };
 
-const handeFocus = () => {
+const handleFocus = () => {
     document.documentElement.style.overflow = "hidden";
 };
 
 const handleOutOfFocus = () => {
+    writeMode = 0;
     document.documentElement.style.overflow = "auto";
 };
 
-canvas.addEventListener("mouseenter", handeFocus);
+const handleTouchMove = (e) => {
+    console.log("move");
+    if (e.changedTouches.length > 1) {
+        alert("only one finger");
+        return;
+    }
+
+    const cord = {
+        clientX: e.changedTouches[0].clientX,
+        clientY: e.changedTouches[0].clientY,
+    };
+    handleMove(cord);
+};
+
+// mouse event
+canvas.addEventListener("mouseenter", handleFocus);
 canvas.addEventListener("mouseleave", handleOutOfFocus);
-canvas.addEventListener("pointerdown", handlePointerDown);
-canvas.addEventListener("pointermove", handleMove);
-canvas.addEventListener("pointerup", handlePointerUp);
+
+canvas.addEventListener("mousedown", handlePointerDown);
+canvas.addEventListener("mousemove", handleMove);
+canvas.addEventListener("mouseup", handlePointerUp);
+
+//touch event
+canvas.addEventListener("touchstart", handleFocus);
+canvas.addEventListener("touchmove", handleTouchMove);
+canvas.addEventListener("touchend", handleOutOfFocus);
+
 font.addEventListener("change", handleFont);
 color.addEventListener("change", handleColor);
 clearBtn.addEventListener("click", handleClear);

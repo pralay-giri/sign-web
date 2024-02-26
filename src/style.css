@@ -187,11 +187,11 @@ img {
         margin: 1rem;
     }
 
-    & #canvas {
+    /* & #canvas {
         background-color: var(--primary-color);
         border-radius: 10px;
         cursor: crosshair;
-    }
+    } */
 
     & .controls {
         display: -webkit-box;
